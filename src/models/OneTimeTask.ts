@@ -3,6 +3,10 @@ import { Status } from "./Status";
 import { Task } from "./Task";
 
 export class OneTimeTask extends Task {
+    
+    public fechaFinal: Date;
+    public horaFinal: string;
+
     constructor(
         id: number,
         nombre: string,
@@ -13,7 +17,9 @@ export class OneTimeTask extends Task {
         estado: Status = Status.Pendiente,
         completado: boolean = false,
     ){
-        super(id, nombre, prioridad, descripcion ,fechaFinal, horaFinal, estado,completado)
+        super(id, nombre, prioridad, descripcion ,estado,completado);
+        this.fechaFinal = fechaFinal;
+        this.horaFinal = horaFinal;
     };
 
     obtenerDescripcion(): string {
