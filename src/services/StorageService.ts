@@ -1,5 +1,6 @@
+import type { Persistible } from "../models/interfaces/Persistible";
 
-export class StorageService {
+export class StorageService implements Persistible {
     private static instancia: StorageService;
 
     private constructor(){}
