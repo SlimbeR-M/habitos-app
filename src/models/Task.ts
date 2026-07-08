@@ -4,7 +4,7 @@ import { Status }from "./Status";
 
 
 export abstract class Task implements Completable {
-    protected id: number;
+    public readonly id: number;
     public nombre: string;
     public prioridad: Priority;
     public estado: Status;
