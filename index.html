@@ -10,7 +10,23 @@
       <h1>Hábitos App</h1>
     </header>
     <main id="app">
-
+      <section class="form">
+        <form class="form-habito" id="form-habito">
+          <label class="form-habito__label" for="nombre">Habito:</label>
+          <input class="form-habito__input" type="text" id="nombre-habito" placeholder="Tomar agua" required>
+          <label class="form-habito__label" for="descripcion">Descripción:</label>
+          <textarea class="form-habito__input" id="descripcion" placeholder="Describe tu tarea aquí..." required></textarea>
+          <select class="form-habito__input"  id="prioridad" required>
+            <option selected disabled hidden>Selecciona prioridad</option>
+            <option value="baja">Baja</option>
+            <option value="media">Media</option>
+            <option value="alta">Alta</option>
+          </select>
+          <button class="form-habito__boton" type="submit">Crear</button>
+        </form>
+      </section>
+      <section class="habitos" id="lista-habitos">
+      </section>
     </main>
     <footer>
       <p>Hábitos App - &copy; Todos los derechos reservados</p>
