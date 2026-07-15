@@ -13,7 +13,24 @@ const storage = StorageService.obtenerInstancia(),
 const formulario = document.querySelector("#form-habito") as HTMLFormElement,
     inpNombre = document.querySelector("#nombre-habito") as HTMLInputElement,
     txtDescripcion = document.querySelector("#descripcion") as HTMLTextAreaElement,
-    slctPrioridad = document.querySelector("#prioridad") as HTMLSelectElement;
+    slctPrioridad = document.querySelector("#prioridad") as HTMLSelectElement,
+    contenedorHabitos = document.querySelector("#lista-habitos") as HTMLElement;
+
+const renderizarHabitos = (): void => {
+    contenedorHabitos.innerHTML = "";
+    const habits = habitos.obtenerTodos();
+    for(let habito of habits) {
+        contenedorHabitos.innerHTML += `<article class="tarjeta-habito">
+                    <h2 class="tarjeta-habito__nombre">${habito.nombre}</h2>
+                    <p class="tarjeta-habito__descripcion">${habito.descripcion}</p>
+                    <p class="tarjeta-habito__prioridad">Prioridad: ${habito.prioridad}</p>
+                    <p class="tarjeta-habito__racha">Racha: ${habito.racha}</p>
+                    <button class="tarjeta-habito__boton tarjeta-habito__boton--completar">Completar</button>
+                    <button class="tarjeta-habito__boton  tarjeta-habito__boton--eliminar">Borrar</button>
+                </article>`
+    }
+
+}
 
 formulario.addEventListener("submit", (event)=> {
     event.preventDefault();
@@ -25,6 +42,8 @@ formulario.addEventListener("submit", (event)=> {
 
     const habito = new Habit(id, nombre, prioridad, descripcion); 
     habitos.agregar(habito);
+    renderizarHabitos();
     formulario.reset();
 });
 
+renderizarHabitos();
