@@ -25,8 +25,8 @@ const renderizarHabitos = (): void => {
                     <p class="tarjeta-habito__descripcion">${habito.descripcion}</p>
                     <p class="tarjeta-habito__prioridad">Prioridad: ${habito.prioridad}</p>
                     <p class="tarjeta-habito__racha">Racha: ${habito.racha}</p>
-                    <button class="tarjeta-habito__boton tarjeta-habito__boton--completar">Completar</button>
-                    <button class="tarjeta-habito__boton  tarjeta-habito__boton--eliminar">Borrar</button>
+                    <button class="tarjeta-habito__boton tarjeta-habito__boton--completar"  data-id="${habito.id}">Completar</button>
+                    <button class="tarjeta-habito__boton  tarjeta-habito__boton--eliminar" data-id="${habito.id}">Borrar</button>
                 </article>`
     }
 
@@ -44,6 +44,25 @@ formulario.addEventListener("submit", (event)=> {
     habitos.agregar(habito);
     renderizarHabitos();
     formulario.reset();
+});
+
+contenedorHabitos.addEventListener("click", (event)=> {
+    const elemento = event.target as HTMLElement;
+
+    if(elemento.classList.contains("tarjeta-habito__boton--completar")){
+        const id = Number(elemento.dataset.id);
+        const habito = habitos.obtenerPorId(id);
+        if(habito){
+            habito.incrementarRacha();
+            habitos.actualizar(id, habito);
+            
+        }
+
+    } else if (elemento.classList.contains("tarjeta-habito__boton--eliminar")){
+        const id = Number(elemento.dataset.id);
+        habitos.eliminar(id);
+    } 
+    renderizarHabitos();
 });
 
 renderizarHabitos();
