@@ -5,14 +5,16 @@ export class Repository<T extends Identifiable> {
     private items: T[] = [];
     private storage: Persistible;
     private clave: string;
+    private crearInstancia: (data: any) => T;
 
-    constructor(storage: Persistible, clave: string){
+    constructor(storage: Persistible, clave: string, crearInstancia: (data: any) => T) {
         this.storage = storage;
         this.clave = clave;
+        this.crearInstancia = crearInstancia;
 
         let datos = this.storage.obtener(this.clave);
-        if(datos){
-            this.items = datos;
+        if (datos) {
+            this.items = datos.map((item: any) => this.crearInstancia(item));
         }
     }
 

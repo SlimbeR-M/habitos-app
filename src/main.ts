@@ -7,8 +7,7 @@ import { Priority } from './models/Priority'
 import { Status } from './models/Status';
 
 const storage = StorageService.obtenerInstancia(),
-    habitos = new Repository<Habit>(storage,"habitos"),
-    tareas = new Repository<OneTimeTask>(storage,"tareas");
+    habitos = new Repository<Habit>(storage, "habitos", Habit.desdeObjeto);
 
 const formulario = document.querySelector("#form-habito") as HTMLFormElement,
     inpNombre = document.querySelector("#nombre-habito") as HTMLInputElement,
@@ -20,12 +19,14 @@ const renderizarHabitos = (): void => {
     contenedorHabitos.innerHTML = "";
     const habits = habitos.obtenerTodos();
     for(let habito of habits) {
+        const hoy = new Date().toISOString().split("T")[0];
+        const completadoHoy = habito.ultimaFecha === hoy;
         contenedorHabitos.innerHTML += `<article class="tarjeta-habito">
                     <h2 class="tarjeta-habito__nombre">${habito.nombre}</h2>
                     <p class="tarjeta-habito__descripcion">${habito.descripcion}</p>
                     <p class="tarjeta-habito__prioridad">Prioridad: ${habito.prioridad}</p>
                     <p class="tarjeta-habito__racha">Racha: ${habito.racha}</p>
-                    <button class="tarjeta-habito__boton tarjeta-habito__boton--completar"  data-id="${habito.id}">Completar</button>
+                    <button class="tarjeta-habito__boton tarjeta-habito__boton--completar"  data-id="${habito.id}" ${completadoHoy ? "disabled" : ""}>Completar</button>
                     <button class="tarjeta-habito__boton  tarjeta-habito__boton--eliminar" data-id="${habito.id}">Borrar</button>
                 </article>`
     }
@@ -53,8 +54,10 @@ contenedorHabitos.addEventListener("click", (event)=> {
         const id = Number(elemento.dataset.id);
         const habito = habitos.obtenerPorId(id);
         if(habito){
-            habito.incrementarRacha();
-            habitos.actualizar(id, habito);
+            const seActualizo = habito.incrementarRacha();
+            if(seActualizo){
+                habitos.actualizar(id, habito);
+            }
             
         }
 
