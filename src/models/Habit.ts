@@ -32,13 +32,23 @@ export class Habit extends Task {
         obj.racha,
         obj.ultimaFecha
     );
-}
+    }
+
+    obtenerFechaLocal(fecha: Date): string {
+        const year = fecha.getFullYear();
+        const month = String(fecha.getMonth() + 1).padStart(2, "0");
+        const day = String(fecha.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+    }
 
     incrementarRacha(): boolean {
-        const hoy = new Date().toISOString().split("T")[0];
+        const hoy = this.obtenerFechaLocal(new Date());
+        const ayer = this.obtenerFechaLocal(new Date(Date.now() - 86400000));
         if(this.ultimaFecha === hoy){
             return false;
-        } 
+        } else if (this.ultimaFecha !== ayer) {
+            this.romperRacha();
+        }
         this.racha += 1;
         this.marcarCompletado();
         this.ultimaFecha = hoy;

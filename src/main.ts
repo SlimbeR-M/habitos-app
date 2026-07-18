@@ -19,7 +19,7 @@ const renderizarHabitos = (): void => {
     contenedorHabitos.innerHTML = "";
     const habits = habitos.obtenerTodos();
     for(let habito of habits) {
-        const hoy = new Date().toISOString().split("T")[0];
+        const hoy = habito.obtenerFechaLocal(new Date());
         const completadoHoy = habito.ultimaFecha === hoy;
         contenedorHabitos.innerHTML += `<article class="tarjeta-habito">
                     <h2 class="tarjeta-habito__nombre">${habito.nombre}</h2>
@@ -40,6 +40,11 @@ formulario.addEventListener("submit", (event)=> {
         descripcion = txtDescripcion.value,
         prioridad = slctPrioridad.value as Priority,
         id = Date.now();
+    
+    if(!nombre || !descripcion || !prioridad){
+        alert("Por favor completa todos los campos");
+        return;
+    }
 
     const habito = new Habit(id, nombre, prioridad, descripcion); 
     habitos.agregar(habito);
