@@ -10,22 +10,46 @@
       <h1>Hábitos App</h1>
     </header>
     <main id="app">
-      <section class="form">
-        <form class="form-habito" id="form-habito">
-          <label class="form-habito__label" for="nombre">Habito:</label>
-          <input class="form-habito__input" type="text" id="nombre-habito" placeholder="Tomar agua" required>
-          <label class="form-habito__label" for="descripcion">Descripción:</label>
-          <textarea class="form-habito__input" id="descripcion" placeholder="Describe tu tarea aquí..." required></textarea>
-          <select class="form-habito__input"  id="prioridad" required>
-            <option value="" selected disabled hidden>Selecciona prioridad</option>
-            <option value="baja">Baja</option>
-            <option value="media">Media</option>
-            <option value="alta">Alta</option>
-          </select>
-          <button class="form-habito__boton" type="submit">Crear</button>
-        </form>
+      <section class="habitos">
+        <section class="form">
+          <form class="form-habito" id="form-habito">
+            <label class="form-habito__label" for="nombre">Habito:</label>
+            <input class="form-habito__input" type="text" id="nombre-habito" placeholder="Tomar agua" required>
+            <label class="form-habito__label" for="descripcion">Descripción:</label>
+            <textarea class="form-habito__input" id="descripcion" placeholder="Describe tu tarea aquí..." required></textarea>
+            <select class="form-habito__input"  id="prioridad" required>
+              <option value="" selected disabled hidden>Selecciona prioridad</option>
+              <option value="baja">Baja</option>
+              <option value="media">Media</option>
+              <option value="alta">Alta</option>
+            </select>
+            <button class="form-habito__boton" type="submit">Crear</button>
+          </form>
+        </section>
+        <section class="habitos" id="lista-habitos">
+        </section>
       </section>
-      <section class="habitos" id="lista-habitos">
+      <section class="tareas">
+        <section class="form">
+          <form class="form-tarea" id="form-tarea">
+            <label class="form-tarea__label" for="nombre-tarea">Tarea:</label>
+            <input class="form-tarea__input" type="text" id="nombre-tarea" placeholder="Entregar reporte" required>
+            <label class="form-tarea__label" for="descripcion-tarea">Descripción:</label>
+            <textarea class="form-tarea__input" id="descripcion-tarea" placeholder="Describe tu tarea aquí..." required></textarea>
+            <label class="form-tarea__label" for="fecha-tarea">Fecha límite:</label>
+            <input class="form-tarea__input" type="date" id="fecha-tarea" required>
+            <label class="form-tarea__label" for="hora-tarea">Hora límite:</label>
+            <input class="form-tarea__input" type="time" id="hora-tarea" required>
+            <select class="form-tarea__input" id="prioridad-tarea" required>
+              <option value="" selected disabled hidden>Selecciona prioridad</option>
+              <option value="baja">Baja</option>
+              <option value="media">Media</option>
+              <option value="alta">Alta</option>
+            </select>
+            <button class="form-tarea__boton" type="submit">Crear</button>
+          </form>
+        </section>
+        <section class="tareas" id="lista-tareas"></section>
       </section>
     </main>
     <footer>

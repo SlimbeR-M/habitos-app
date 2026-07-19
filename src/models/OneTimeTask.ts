@@ -22,6 +22,19 @@ export class OneTimeTask extends Task {
         this.horaFinal = horaFinal;
     };
 
+    static desdeObjeto(obj: any): OneTimeTask {
+    return new OneTimeTask(
+        obj.id,
+        obj.nombre,
+        obj.prioridad,
+        obj.descripcion,
+        obj.fechaFinal,
+        obj.horaFinal,
+        obj.estado,
+        obj.completado
+    );
+    }
+
     obtenerDescripcion(): string {
         return `${this.descripcion} (vence el ${this.fechaFinal.toLocaleDateString()} a las ${this.horaFinal})`;
     }
