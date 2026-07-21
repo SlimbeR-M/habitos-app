@@ -50,11 +50,18 @@ const renderizarTareas = (): void => {
     contenedorTareas.innerHTML = "";
     const listaTareas = tareas.obtenerTodos();
     for (let tarea of listaTareas) {
+        const fechaLimite = new Date(tarea.fechaFinal);
+        const [horas, minutos] = tarea.horaFinal.split(":");
+        fechaLimite.setHours(Number(horas), Number(minutos));
+
+        const estaVencida = fechaLimite < new Date() && !tarea.completado;
+
         contenedorTareas.innerHTML += `<article class="tarjeta-tarea">
                     <h2 class="tarjeta-tarea__nombre">${tarea.nombre}</h2>
                     <p class="tarjeta-tarea__descripcion">${tarea.descripcion}</p>
                     <p class="tarjeta-tarea__prioridad">Prioridad: ${tarea.prioridad}</p>
                     <p class="tarjeta-tarea__fecha">Vence: ${new Date(tarea.fechaFinal).toLocaleDateString()} a las ${tarea.horaFinal}</p>
+                    ${estaVencida ? '<p class="tarjeta-tarea__vencida">⚠️ Tarea vencida</p>' : ''}
                     <button class="tarjeta-tarea__boton tarjeta-tarea__boton--completar" data-id="${tarea.id}" ${tarea.completado ? "disabled" : ""}>Completar</button>
                     <button class="tarjeta-tarea__boton tarjeta-tarea__boton--eliminar" data-id="${tarea.id}">Borrar</button>
                 </article>`
