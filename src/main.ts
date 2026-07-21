@@ -24,6 +24,10 @@ const formularioTarea = document.querySelector("#form-tarea") as HTMLFormElement
     slctPrioridadTarea = document.querySelector("#prioridad-tarea") as HTMLSelectElement,
     contenedorTareas = document.querySelector("#lista-tareas") as HTMLElement;
 
+const hoy = new Date(),
+    hoyString = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, "0")}-${String(hoy.getDate()).padStart(2, "0")}`;
+    inpFechaTarea.min = hoyString;
+
 const renderizarHabitos = (): void => {
     contenedorHabitos.innerHTML = "";
     const habits = habitos.obtenerTodos();
@@ -96,6 +100,20 @@ formularioTarea.addEventListener("submit", (event) => {
     renderizarTareas();
     formularioTarea.reset();
 });
+
+const actualizarHoraMinima = ():void => {
+    const ahora = new Date();
+    const hoyStringActual = `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, "0")}-${String(ahora.getDate()).padStart(2, "0")}`;
+    
+    if (inpFechaTarea.value === hoyStringActual) {
+        const horaActual = `${String(ahora.getHours()).padStart(2, "0")}:${String(ahora.getMinutes()).padStart(2, "0")}`;
+        inpHoraTarea.min = horaActual;
+    }
+}
+
+inpFechaTarea.addEventListener("change", actualizarHoraMinima);
+inpHoraTarea.addEventListener("focus", actualizarHoraMinima);
+inpHoraTarea.addEventListener("click", actualizarHoraMinima);
 
 contenedorHabitos.addEventListener("click", (event)=> {
     const elemento = event.target as HTMLElement;
