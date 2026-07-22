@@ -74,7 +74,6 @@ main#app {
   }
 }
 
-/* ---- Bloques de sección (hábitos / tareas) ---- */
 section.habitos,
 section.tareas {
   display: flex;
@@ -87,7 +86,6 @@ section.tareas > h2 {
   font-family: var(--fuente-display);
 }
 
-/* Etiqueta de categoría encima de cada columna */
 main#app > section.habitos::before,
 main#app > section.tareas::before {
   font-family: var(--fuente-datos);
@@ -109,7 +107,6 @@ main#app > section.tareas::before {
   color: var(--tarea);
 }
 
-/* ---- Formularios ---- */
 section.form {
   background: #fff;
   border: 1px solid var(--borde);
@@ -190,7 +187,6 @@ textarea.form-tarea__input {
   outline-offset: 2px;
 }
 
-/* ---- Tarjetas ---- */
 .tarjeta-habito,
 .tarjeta-tarea {
   position: relative;
@@ -245,7 +241,6 @@ textarea.form-tarea__input {
   border-radius: 999px;
   padding: 0.3rem 0.75rem;
   margin: 0 0 0.7rem;
-  transform: rotate(-2deg);
 }
 
 .tarjeta-tarea__vencida {
