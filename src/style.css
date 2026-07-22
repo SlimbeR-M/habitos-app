@@ -1,0 +1,340 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+:root {
+  --papel: #F7F3EC;
+  --papel-alt: #EFE8D8;
+  --tinta: #242220;
+  --tinta-suave: #5B564E;
+  --habito: #2B4C3F;
+  --habito-claro: #E4ECE7;
+  --tarea: #C68A2E;
+  --tarea-claro: #F6E9D2;
+  --alerta: #B0483A;
+  --alerta-claro: #F5DFDB;
+  --borde: #DDD3BE;
+  --disabled: #6d6969;
+
+  --fuente-display: 'Fraunces', serif;
+  --fuente-texto: 'Inter', sans-serif;
+  --fuente-datos: 'IBM Plex Mono', monospace;
+
+  --radio: 10px;
+  --sombra: 0 2px 0 var(--borde), 0 8px 20px -12px rgba(36, 34, 32, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--papel);
+  background-image:
+    linear-gradient(var(--borde) 1px, transparent 1px);
+  background-size: 100% 2.2rem;
+  color: var(--tinta);
+  font-family: var(--fuente-texto);
+  line-height: 1.5;
+}
+
+header {
+  padding: 2.5rem 1.5rem 1rem;
+  text-align: center;
+}
+
+header h1 {
+  font-family: var(--fuente-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+header h1::after {
+  content: "";
+  display: block;
+  width: 3.5rem;
+  height: 3px;
+  background: var(--tarea);
+  margin: 0.75rem auto 0;
+}
+
+main#app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 4rem;
+  display: grid;
+  gap: 3rem;
+}
+
+@media (min-width: 860px) {
+  main#app {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+/* ---- Bloques de sección (hábitos / tareas) ---- */
+section.habitos,
+section.tareas {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+section.habitos > h2,
+section.tareas > h2 {
+  font-family: var(--fuente-display);
+}
+
+/* Etiqueta de categoría encima de cada columna */
+main#app > section.habitos::before,
+main#app > section.tareas::before {
+  font-family: var(--fuente-datos);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid currentColor;
+}
+
+main#app > section.habitos::before {
+  content: "Hábitos diarios";
+  color: var(--habito);
+}
+
+main#app > section.tareas::before {
+  content: "Tareas con fecha";
+  color: var(--tarea);
+}
+
+/* ---- Formularios ---- */
+section.form {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 1.25rem;
+  box-shadow: var(--sombra);
+}
+
+.form-habito,
+.form-tarea {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.form-habito__label,
+.form-tarea__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--tinta-suave);
+  margin-top: 0.4rem;
+}
+
+.form-habito__input,
+.form-tarea__input {
+  font-family: var(--fuente-texto);
+  font-size: 0.95rem;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  background: var(--papel);
+  color: var(--tinta);
+}
+
+.form-habito__input:focus,
+.form-tarea__input:focus {
+  outline: 2px solid var(--habito);
+  outline-offset: 1px;
+}
+
+.form-tarea .form-tarea__input:focus {
+  outline-color: var(--tarea);
+}
+
+textarea.form-habito__input,
+textarea.form-tarea__input {
+  resize: vertical;
+  min-height: 4.5rem;
+}
+
+.form-habito__boton,
+.form-tarea__boton {
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #fff;
+  background: var(--habito);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.form-tarea__boton {
+  background: var(--tarea);
+}
+
+.form-habito__boton:hover,
+.form-tarea__boton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px -4px rgba(0,0,0,0.4);
+}
+
+.form-habito__boton:focus-visible,
+.form-tarea__boton:focus-visible {
+  outline: 3px solid var(--tinta);
+  outline-offset: 2px;
+}
+
+/* ---- Tarjetas ---- */
+.tarjeta-habito,
+.tarjeta-tarea {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 1.1rem 1.1rem 1rem;
+  margin-bottom: 0.9rem;
+  box-shadow: var(--sombra);
+}
+
+
+
+.tarjeta-habito__nombre,
+.tarjeta-tarea__nombre {
+  font-family: var(--fuente-display);
+  font-size: 1.15rem;
+  margin: 0 0 0.3rem;
+}
+
+.tarjeta-habito__descripcion,
+.tarjeta-tarea__descripcion {
+  color: var(--tinta-suave);
+  font-size: 0.9rem;
+  margin: 0 0 0.6rem;
+}
+
+.tarjeta-habito__prioridad,
+.tarjeta-tarea__prioridad,
+.tarjeta-tarea__fecha {
+  display: inline-block;
+  font-family: var(--fuente-datos);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--papel-alt);
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+  margin: 0 0.4rem 0.6rem 0;
+}
+
+/* Sello de racha: el elemento distintivo del diseño */
+.tarjeta-habito__racha {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fuente-datos);
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--habito);
+  border: 2px solid var(--habito);
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  margin: 0 0 0.7rem;
+  transform: rotate(-2deg);
+}
+
+.tarjeta-tarea__vencida {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--alerta);
+  background: var(--alerta-claro);
+  border-radius: 4px;
+  padding: 0.3rem 0.55rem;
+  margin: 0 0 0.7rem;
+  display: inline-block;
+}
+
+.tarjeta-habito__boton,
+.tarjeta-tarea__boton {
+  border: 1px solid var(--borde);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.45rem 0.8rem;
+  border-radius: 6px;
+  margin-right: 0.5rem;
+}
+
+.tarjeta-habito__boton--completar,
+.tarjeta-tarea__boton--completar {
+  border-color: var(--habito);
+  color: var(--habito);
+  background-color: #fff;
+}
+
+.tarjeta-habito__boton--completar:hover ,
+.tarjeta-tarea__boton--completar:hover {
+  border-color: #1f8860;
+  color: #002517;
+  background-color: #7cc26741;
+}
+
+.tarjeta-habito__boton--completar:active ,
+.tarjeta-tarea__boton--completar:active {
+  border-color: #16bd7d;
+  color: #000000;
+  background-color: #7cc26776;
+}
+
+
+.tarjeta-habito__boton--completar:disabled,
+.tarjeta-tarea__boton--completar:disabled {
+  background: var(--disabled);
+  border-color: var(--borde);
+  color: #fff;
+  cursor: not-allowed;
+}
+
+.tarjeta-habito__boton--eliminar,
+.tarjeta-tarea__boton--eliminar {
+  background: #fff;
+  border-color: var(--alerta);
+  color: var(--alerta);
+}
+
+.tarjeta-habito__boton--eliminar:hover,
+.tarjeta-tarea__boton--eliminar:hover {
+  background: var(--alerta-claro);
+}
+
+
+.tarjeta-habito__boton--eliminar:active,
+.tarjeta-tarea__boton--eliminar:active {
+  background: #ac24243b;
+  border-color: #ce1f07;
+  color: #410802;
+}
+
+.tarjeta-habito__boton:focus-visible,
+.tarjeta-tarea__boton:focus-visible {
+  outline: 3px solid var(--tinta);
+  outline-offset: 2px;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--tinta-suave);
+  padding: 1.5rem;
+  border-top: 1px solid var(--borde);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

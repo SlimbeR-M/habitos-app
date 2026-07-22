@@ -39,6 +39,7 @@ const renderizarHabitos = (): void => {
                     <p class="tarjeta-habito__descripcion">${habito.descripcion}</p>
                     <p class="tarjeta-habito__prioridad">Prioridad: ${habito.prioridad}</p>
                     <p class="tarjeta-habito__racha">Racha: ${habito.racha}</p>
+                    <br>
                     <button class="tarjeta-habito__boton tarjeta-habito__boton--completar"  data-id="${habito.id}" ${completadoHoy ? "disabled" : ""}>Completar</button>
                     <button class="tarjeta-habito__boton  tarjeta-habito__boton--eliminar" data-id="${habito.id}">Borrar</button>
                 </article>`
@@ -62,6 +63,7 @@ const renderizarTareas = (): void => {
                     <p class="tarjeta-tarea__prioridad">Prioridad: ${tarea.prioridad}</p>
                     <p class="tarjeta-tarea__fecha">Vence: ${new Date(tarea.fechaFinal).toLocaleDateString()} a las ${tarea.horaFinal}</p>
                     ${estaVencida ? '<p class="tarjeta-tarea__vencida">⚠️ Tarea vencida</p>' : ''}
+                    <br>
                     <button class="tarjeta-tarea__boton tarjeta-tarea__boton--completar" data-id="${tarea.id}" ${tarea.completado ? "disabled" : ""}>Completar</button>
                     <button class="tarjeta-tarea__boton tarjeta-tarea__boton--eliminar" data-id="${tarea.id}">Borrar</button>
                 </article>`
