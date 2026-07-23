@@ -91,10 +91,13 @@ formulario.addEventListener("submit", (event)=> {
 
 formularioTarea.addEventListener("submit", (event) => {
     event.preventDefault();
+    
 
     const nombre = inpNombreTarea.value,
         descripcion = txtDescripcionTarea.value,
         fecha = inpFechaTarea.value,
+        [anio, mes, dia] = fecha.split("-").map(Number),
+        fechaLocal = new Date(anio, mes - 1, dia),
         hora = inpHoraTarea.value,
         prioridad = slctPrioridadTarea.value as Priority,
         id = Date.now();
@@ -104,7 +107,7 @@ formularioTarea.addEventListener("submit", (event) => {
         return;
     }
 
-    const tarea = new OneTimeTask(id, nombre, prioridad, descripcion, new Date(fecha), hora);
+    const tarea = new OneTimeTask(id, nombre, prioridad, descripcion, fechaLocal, hora);
     tareas.agregar(tarea);
     renderizarTareas();
     formularioTarea.reset();
