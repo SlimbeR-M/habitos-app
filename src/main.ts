@@ -6,6 +6,12 @@ import { OneTimeTask } from './models/OneTimeTask';
 import { Priority } from './models/Priority'
 import { Status } from './models/Status';
 
+const ordenPrioridad: Record<string, number> = {
+    alta: 3,
+    media: 2,
+    baja: 1
+};
+
 const storage = StorageService.obtenerInstancia(),
     habitos = new Repository<Habit>(storage, "habitos", Habit.desdeObjeto),
     tareas = new Repository<OneTimeTask>(storage, "tareas", OneTimeTask.desdeObjeto);
@@ -30,7 +36,7 @@ const hoy = new Date(),
 
 const renderizarHabitos = (): void => {
     contenedorHabitos.innerHTML = "";
-    const habits = habitos.obtenerTodos();
+    const habits = habitos.obtenerTodos().sort((a, b) => ordenPrioridad[b.prioridad] - ordenPrioridad[a.prioridad]);
     for(let habito of habits) {
         const hoy = habito.obtenerFechaLocal(new Date());
         const completadoHoy = habito.ultimaFecha === hoy;
@@ -47,14 +53,24 @@ const renderizarHabitos = (): void => {
 
 }
 
+const obtenerFechaLimite = (tarea: OneTimeTask): Date => {
+    const fechaLimite = new Date(tarea.fechaFinal);
+    const [horas, minutos] = tarea.horaFinal.split(":");
+    fechaLimite.setHours(Number(horas), Number(minutos));
+    return fechaLimite;
+};
+
 const renderizarTareas = (): void => {
     contenedorTareas.innerHTML = "";
-    const listaTareas = tareas.obtenerTodos();
+    const listaTareas = tareas.obtenerTodos().sort((a, b) => {
+    const diferenciaFecha = obtenerFechaLimite(a).getTime() - obtenerFechaLimite(b).getTime();
+    if (diferenciaFecha !== 0) {
+        return diferenciaFecha;
+    }
+    return ordenPrioridad[b.prioridad] - ordenPrioridad[a.prioridad];
+    });
     for (let tarea of listaTareas) {
-        const fechaLimite = new Date(tarea.fechaFinal);
-        const [horas, minutos] = tarea.horaFinal.split(":");
-        fechaLimite.setHours(Number(horas), Number(minutos));
-
+        const fechaLimite = obtenerFechaLimite(tarea);
         const estaVencida = fechaLimite < new Date() && !tarea.completado;
 
         contenedorTareas.innerHTML += `<article class="tarjeta-tarea">
@@ -91,8 +107,6 @@ formulario.addEventListener("submit", (event)=> {
 
 formularioTarea.addEventListener("submit", (event) => {
     event.preventDefault();
-    
-
     const nombre = inpNombreTarea.value,
         descripcion = txtDescripcionTarea.value,
         fecha = inpFechaTarea.value,
