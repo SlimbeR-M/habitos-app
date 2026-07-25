@@ -23,9 +23,9 @@ Aplicación web para gestionar hábitos diarios y tareas con fecha límite. Perm
 | `src/main.ts` | Manejo del DOM con delegación de eventos |
 
 ## Cómo correrlo
-\`\`\`bash
+```bash
 git clone https://github.com/SlimbeR-M/habitos-app.git
 cd habitos-app
 pnpm install
 pnpm run dev
-\`\`\`
+```
