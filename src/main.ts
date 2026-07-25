@@ -4,7 +4,6 @@ import { Repository } from './services/Repository'
 import { Habit } from './models/Habit';
 import { OneTimeTask } from './models/OneTimeTask';
 import { Priority } from './models/Priority'
-import { Status } from './models/Status';
 
 const ordenPrioridad: Record<string, number> = {
     alta: 3,
