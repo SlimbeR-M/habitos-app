@@ -1,8 +1,9 @@
 # Hábitos App
 Aplicación web para gestionar hábitos diarios y tareas con fecha límite. Permite marcar hábitos como completados llevando un conteo de racha, y crear tareas puntuales con fecha y hora de vencimiento.
 
-![Vista de la app](<img width="1888" height="1100" alt="image" src="https://github.com/user-attachments/assets/b01c1de6-bb87-4e57-bec2-2a31b07b2c1f" />
-)
+![Vista de la app]
+<img width="1899" height="1113" alt="image" src="https://github.com/user-attachments/assets/36139304-c246-4e90-8e88-e40c97e44480" />
+
 
 ## Funcionalidades
 - Crear, completar y eliminar hábitos y tareas
